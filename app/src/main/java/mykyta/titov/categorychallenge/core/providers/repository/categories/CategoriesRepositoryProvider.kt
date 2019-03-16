@@ -1,11 +1,10 @@
-package mykyta.titov.categorychallenge.core.providers.repository
+package mykyta.titov.categorychallenge.core.providers.repository.categories
 
 import mykyta.titov.categorychallenge.core.providers.Provider
-import mykyta.titov.categorychallenge.data.repositories.details.CategoriesRepository
-import mykyta.titov.categorychallenge.data.repositories.details.Remote
+import mykyta.titov.categorychallenge.data.repositories.categories.CategoriesRepository
 
 class CategoriesRepositoryProvider(
-        private val categoriesRemoteProvider: Provider<Remote>
+        private val categoriesRemoteProvider: Provider<CategoriesRepository.Remote>
 ) : Provider<CategoriesRepository>() {
 
     private val categoriesRepository: CategoriesRepository by lazy {

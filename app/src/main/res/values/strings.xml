@@ -2,4 +2,6 @@
     <string name="app_name">Category Challenge</string>
 
     <string name="error_category_loading">Failed to load images</string>
+    <string name="error_item_loading">Failed to load images</string>
+    <string name="button_to_categories">Go to categories</string>
 </resources>

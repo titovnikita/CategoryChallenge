@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="mykyta.titov.categorychallenge"
-          xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="mykyta.titov.categorychallenge">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".core.App"
@@ -14,15 +14,18 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
 
-        <activity android:name=".ui.features.gallery.CategoriesActivity">
+        <activity android:name=".ui.features.home.HomeActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.features.image.ImageActivity"/>
+        <provider
+            android:name="mykyta.titov.tracking.data.database.DatabaseContentProvider"
+            android:authorities="com.categories.provider"
+            android:exported="false" />
     </application>
 
 </manifest>

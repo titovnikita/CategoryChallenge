@@ -2,7 +2,7 @@ package mykyta.titov.categorychallenge.core.providers.usecases
 
 import mykyta.titov.categorychallenge.core.providers.Provider
 import mykyta.titov.categorychallenge.data.mappers.CategoriesMapper
-import mykyta.titov.categorychallenge.data.repositories.details.CategoriesRepository
+import mykyta.titov.categorychallenge.data.repositories.categories.CategoriesRepository
 import mykyta.titov.categorychallenge.usecases.GetCategoriesUseCase
 
 class GetCategoriesUseCaseProvider(

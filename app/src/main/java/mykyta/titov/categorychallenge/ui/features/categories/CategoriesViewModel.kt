@@ -1,4 +1,4 @@
-package mykyta.titov.categorychallenge.ui.features.gallery
+package mykyta.titov.categorychallenge.ui.features.categories
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -14,26 +14,26 @@ class CategoriesViewModel(
         private val executor: Executor
 ) : BaseViewModel() {
 
-    private val openImageScreenEvent = SingleLiveEvent<String>()
+    private val openItemsScreenEvent = SingleLiveEvent<Category>()
 
-    private val uiModel: MutableLiveData<CategoryUiModel> = MutableLiveData()
+    private val uiModel: MutableLiveData<CategoriesUiModel> = MutableLiveData()
 
-    fun openImageScreenEvents(): SingleLiveEvent<String> = openImageScreenEvent
+    fun openItemsScreenEvents(): SingleLiveEvent<Category> = openItemsScreenEvent
 
-    fun uiEvents(): LiveData<CategoryUiModel> = uiModel
+    fun uiEvents(): LiveData<CategoriesUiModel> = uiModel
 
     fun start() {
         executor.execute {
             try {
                 val categories = getCarDetailsUseCase.getCategories()
-                uiModel.postValue(CategoryUiModel(State.Loaded(categories)))
+                uiModel.postValue(CategoriesUiModel(State.Loaded(categories)))
             } catch (exception: IllegalStateException) {
-                uiModel.postValue(CategoryUiModel(State.Error))
+                uiModel.postValue(CategoriesUiModel(State.Error))
             }
         }
     }
 
     fun onCategoryClicked(category: Category) {
-        openImageScreenEvent.value = category.cover.full
+        openItemsScreenEvent.value = category
     }
 }
