@@ -1,8 +1,8 @@
-package mykyta.titov.categorychallenge.data.entities
+package mykyta.titov.tracking.data.entities
 
 import android.content.ContentValues
 import android.database.Cursor
-import mykyta.titov.categorychallenge.data.tables.CategoriesTable
+import mykyta.titov.tracking.data.tables.CategoriesTable
 
 
 class CategoryEntity : Entity {

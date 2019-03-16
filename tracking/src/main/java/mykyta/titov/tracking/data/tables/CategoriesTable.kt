@@ -1,7 +1,7 @@
-package mykyta.titov.categorychallenge.data.tables
+package mykyta.titov.tracking.data.tables
 
 import android.net.Uri
-import mykyta.titov.categorychallenge.data.database.AUTHORITY
+import mykyta.titov.tracking.data.database.AUTHORITY
 
 object CategoriesTable {
     val TABLE_NAME = "Categories"

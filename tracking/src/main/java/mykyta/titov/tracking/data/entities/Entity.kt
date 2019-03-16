@@ -1,4 +1,4 @@
-package mykyta.titov.categorychallenge.data.entities
+package mykyta.titov.tracking.data.entities
 
 import android.content.ContentValues
 

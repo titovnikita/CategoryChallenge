@@ -1,9 +1,9 @@
-package mykyta.titov.categorychallenge.data.database
+package mykyta.titov.tracking.data.database
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import mykyta.titov.categorychallenge.data.tables.CategoriesTable
+import mykyta.titov.tracking.data.tables.CategoriesTable
 
 class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, NAME, null, VERSION) {
 
@@ -13,7 +13,6 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, NAME, null, V
 
     override fun onUpgrade(database: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
     }
-
 }
 
 private const val VERSION = 1

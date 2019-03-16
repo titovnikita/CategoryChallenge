@@ -13,6 +13,7 @@ import mykyta.titov.categorychallenge.data.mappers.CategoriesMapper
 import mykyta.titov.categorychallenge.data.repositories.details.CategoriesRepository
 import mykyta.titov.categorychallenge.data.repositories.details.Remote
 import mykyta.titov.categorychallenge.usecases.GetCategoriesUseCase
+import mykyta.titov.tracking.data.database.DatabaseHelper
 import retrofit2.Retrofit
 import java.util.concurrent.Executor
 
@@ -31,7 +32,6 @@ class App : Application(), ApplicationBridge {
     private val getCategoriesUseCaseProvider: Provider<GetCategoriesUseCase> = GetCategoriesUseCaseProvider(categoriesRepositoryProvider, categoriesMapperProvider)
 
     private val viewModelFactoryProvider: Provider<ViewModelFactory> = ViewModelFactoryProvider(executorProvider, getCategoriesUseCaseProvider)
-
 
     override fun getViewModelFactory() = viewModelFactoryProvider.get()
 }
