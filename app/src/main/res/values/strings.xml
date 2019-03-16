@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Category Challenge</string>
+
+    <string name="error_category_loading">Failed to load images</string>
+</resources>
