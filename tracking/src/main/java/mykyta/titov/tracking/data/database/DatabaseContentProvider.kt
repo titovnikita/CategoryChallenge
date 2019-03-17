@@ -26,7 +26,7 @@ class DatabaseContentProvider : ContentProvider() {
                 }
             }
 
-    override fun query(uri: Uri, projection: Array<String>?, selection: String,
+    override fun query(uri: Uri, projection: Array<String>?, selection: String?,
                        selectionArgs: Array<String>?, sortOrder: String?): Cursor {
         val tableName = getTableName(uri)
         val selectionToAppend = when {

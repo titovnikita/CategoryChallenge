@@ -7,7 +7,7 @@ import mykyta.titov.categorychallenge.utils.extensions.orDefault
 class Category(
         val id: String,
         val imageUrl: String,
-        val popularity: Int = 0
+        var popularity: Int = 0
 ) : Parcelable {
 
     constructor(source: Parcel) : this(

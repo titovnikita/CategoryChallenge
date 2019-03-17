@@ -2,23 +2,20 @@ package mykyta.titov.categorychallenge.core.providers.usecases
 
 import mykyta.titov.categorychallenge.core.providers.Provider
 import mykyta.titov.categorychallenge.data.mappers.CategoriesMapper
-import mykyta.titov.categorychallenge.data.repositories.categories.CategoriesRepository
 import mykyta.titov.categorychallenge.data.repositories.tracking.TrackingRepository
-import mykyta.titov.categorychallenge.usecases.GetCategoriesUseCase
+import mykyta.titov.categorychallenge.usecases.GetTopCategoryUseCase
 
-class GetCategoriesUseCaseProvider(
-        private val categoriesRepositoryProvider: Provider<CategoriesRepository>,
+class GetTopCategoryUseCaseProvider(
         private val trackingRepositoryProvider: Provider<TrackingRepository>,
         private val categoriesMapperProvider: Provider<CategoriesMapper>
-) : Provider<GetCategoriesUseCase>() {
+) : Provider<GetTopCategoryUseCase>() {
 
-    private val getCategoriesUseCase: GetCategoriesUseCase by lazy {
-        GetCategoriesUseCase(
-                categoriesRepository = categoriesRepositoryProvider.get(),
+    private val getTopCategoryUseCase: GetTopCategoryUseCase by lazy {
+        GetTopCategoryUseCase(
                 trackingRepository = trackingRepositoryProvider.get(),
                 categoriesMapper = categoriesMapperProvider.get()
         )
     }
 
-    override fun get(): GetCategoriesUseCase = getCategoriesUseCase
+    override fun get(): GetTopCategoryUseCase = getTopCategoryUseCase
 }

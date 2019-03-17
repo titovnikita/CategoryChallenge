@@ -13,6 +13,7 @@ import mykyta.titov.categorychallenge.core.providers.repository.tracking.Trackin
 import mykyta.titov.categorychallenge.core.providers.repository.tracking.TrackingRepositoryProvider
 import mykyta.titov.categorychallenge.core.providers.usecases.GetCategoriesUseCaseProvider
 import mykyta.titov.categorychallenge.core.providers.usecases.GetItemsUseCaseProvider
+import mykyta.titov.categorychallenge.core.providers.usecases.GetTopCategoryUseCaseProvider
 import mykyta.titov.categorychallenge.core.providers.usecases.UpdatePopularityUseCaseProvider
 import mykyta.titov.categorychallenge.data.mappers.CategoriesMapper
 import mykyta.titov.categorychallenge.data.mappers.ItemsMapper
@@ -21,6 +22,7 @@ import mykyta.titov.categorychallenge.data.repositories.items.ItemsRepository
 import mykyta.titov.categorychallenge.data.repositories.tracking.TrackingRepository
 import mykyta.titov.categorychallenge.usecases.GetCategoriesUseCase
 import mykyta.titov.categorychallenge.usecases.GetItemsUseCase
+import mykyta.titov.categorychallenge.usecases.GetTopCategoryUseCase
 import mykyta.titov.categorychallenge.usecases.UpdatePopularityUseCase
 import retrofit2.Retrofit
 import java.util.concurrent.Executor
@@ -67,6 +69,7 @@ class App : Application(), ApplicationBridge {
         val getCategoriesUseCaseProvider: Provider<GetCategoriesUseCase> =
                 GetCategoriesUseCaseProvider(
                         categoriesRepositoryProvider,
+                        trackingRepositoryProvider,
                         categoriesMapperProvider
                 )
 
@@ -82,12 +85,19 @@ class App : Application(), ApplicationBridge {
                         categoriesMapperProvider
                 )
 
+        val getTopCategoryUseCaseProvider: Provider<GetTopCategoryUseCase> =
+                GetTopCategoryUseCaseProvider(
+                        trackingRepositoryProvider,
+                        categoriesMapperProvider
+                )
+
         this.viewModelFactoryProvider =
                 ViewModelFactoryProvider(
                         executorProvider,
                         getCategoriesUseCaseProvider,
                         getItemsUseCaseProvider,
-                        updatePopularityUseCaseProvider
+                        updatePopularityUseCaseProvider,
+                        getTopCategoryUseCaseProvider
                 )
     }
 
