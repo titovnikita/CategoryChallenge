@@ -24,7 +24,7 @@
 
         <provider
             android:name="mykyta.titov.tracking.data.database.DatabaseContentProvider"
-            android:authorities="com.categories.provider"
+            android:authorities="com.tracking.provider"
             android:exported="false" />
     </application>
 

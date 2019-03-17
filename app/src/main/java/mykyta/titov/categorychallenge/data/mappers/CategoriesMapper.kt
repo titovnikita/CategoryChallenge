@@ -3,7 +3,7 @@ package mykyta.titov.categorychallenge.data.mappers
 import mykyta.titov.categorychallenge.data.dtos.CategoryDto
 import mykyta.titov.categorychallenge.domain.Category
 import mykyta.titov.categorychallenge.utils.extensions.orDefault
-import mykyta.titov.tracking.data.entities.CategoryEntity
+import mykyta.titov.tracking.data.entities.TrackingEntity
 
 class CategoriesMapper {
 
@@ -14,10 +14,19 @@ class CategoriesMapper {
         )
     }
 
-    fun transform(categoryEntity: CategoryEntity): Category = with(categoryEntity) {
+    fun transform(trackingEntity: TrackingEntity): Category = with(trackingEntity) {
         Category(
                 id = categoryId,
-                imageUrl = categoryImageUrl
+                imageUrl = categoryImageUrl,
+                popularity = popularity
+        )
+    }
+
+    fun transform(category: Category): TrackingEntity = with(category) {
+        TrackingEntity(
+                categoryId = id,
+                categoryImageUrl = imageUrl,
+                popularity = popularity
         )
     }
 }

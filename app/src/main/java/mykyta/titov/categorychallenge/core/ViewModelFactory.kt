@@ -9,13 +9,15 @@ import mykyta.titov.categorychallenge.ui.features.image.ImageViewModel
 import mykyta.titov.categorychallenge.ui.features.items.ItemsViewModel
 import mykyta.titov.categorychallenge.usecases.GetCategoriesUseCase
 import mykyta.titov.categorychallenge.usecases.GetItemsUseCase
+import mykyta.titov.categorychallenge.usecases.UpdatePopularityUseCase
 import java.util.concurrent.Executor
 
 
 class ViewModelFactory(
         private val executor: Executor,
         private val getCategoriesUseCase: GetCategoriesUseCase,
-        private val getItemsUseCase: GetItemsUseCase
+        private val getItemsUseCase: GetItemsUseCase,
+        private val updatePopularityUseCase: UpdatePopularityUseCase
 ) : ViewModelProvider.Factory {
 
     @Suppress("UNCHECKED_CAST")
@@ -23,7 +25,7 @@ class ViewModelFactory(
             with(modelClass) {
                 return when {
                     isAssignableFrom(HomeViewModel::class.java) -> HomeViewModel() as T
-                    isAssignableFrom(CategoriesViewModel::class.java) -> CategoriesViewModel(getCategoriesUseCase, executor) as T
+                    isAssignableFrom(CategoriesViewModel::class.java) -> CategoriesViewModel(executor, getCategoriesUseCase, updatePopularityUseCase) as T
                     isAssignableFrom(HighlightsViewModel::class.java) -> HighlightsViewModel() as T
                     isAssignableFrom(ImageViewModel::class.java) -> ImageViewModel() as T
                     isAssignableFrom(ItemsViewModel::class.java) -> ItemsViewModel(getItemsUseCase, executor) as T

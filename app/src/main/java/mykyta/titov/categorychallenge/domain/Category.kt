@@ -6,12 +6,14 @@ import mykyta.titov.categorychallenge.utils.extensions.orDefault
 
 class Category(
         val id: String,
-        val imageUrl: String
+        val imageUrl: String,
+        val popularity: Int = 0
 ) : Parcelable {
 
     constructor(source: Parcel) : this(
             source.readString().orDefault(),
-            source.readString().orDefault()
+            source.readString().orDefault(),
+            source.readInt()
     )
 
     override fun describeContents() = 0
@@ -19,6 +21,7 @@ class Category(
     override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
         writeString(id)
         writeString(imageUrl)
+        writeInt(popularity)
     }
 
     companion object {

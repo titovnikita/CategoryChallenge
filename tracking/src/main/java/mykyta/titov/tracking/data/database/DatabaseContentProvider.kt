@@ -6,7 +6,7 @@ import android.content.UriMatcher
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.net.Uri
-import mykyta.titov.tracking.data.tables.CategoriesTable
+import mykyta.titov.tracking.data.tables.TrackingTable
 
 
 class DatabaseContentProvider : ContentProvider() {
@@ -15,8 +15,8 @@ class DatabaseContentProvider : ContentProvider() {
 
     private val uriMatcher = UriMatcher(UriMatcher.NO_MATCH)
             .apply {
-                addURI(AUTHORITY, CategoriesTable.TABLE_NAME, CATEGORIES)
-                addURI(AUTHORITY, "${CategoriesTable.TABLE_NAME}/#", CATEGORIES_CATEGORY)
+                addURI(AUTHORITY, TrackingTable.TABLE_NAME, TRACKING)
+                addURI(AUTHORITY, "${TrackingTable.TABLE_NAME}/#", TRACKING_ITEM)
             }
 
     override fun onCreate(): Boolean = true
@@ -79,41 +79,41 @@ class DatabaseContentProvider : ContentProvider() {
     }
 
     override fun getType(uri: Uri): String = when (uriMatcher.match(uri)) {
-        CATEGORIES -> DIR + AUTHORITY + "." + CategoriesTable.TABLE_NAME
-        CATEGORIES_CATEGORY -> ITEM + AUTHORITY + "." + CategoriesTable.TABLE_NAME
+        TRACKING -> DIR + AUTHORITY + "." + TrackingTable.TABLE_NAME
+        TRACKING_ITEM -> ITEM + AUTHORITY + "." + TrackingTable.TABLE_NAME
         else -> throw IllegalArgumentException("Cannot match type with URL matcher!")
     }
 
     private fun isItem(uriItem: Int): Boolean =
-            uriItem == CATEGORIES_CATEGORY
+            uriItem == TRACKING_ITEM
 
     private fun appendSelections(baseSelection: String?, selectionToAppend: String?): String =
-            when {
-                selectionToAppend != null
-                        && baseSelection != null
-                        && selectionToAppend.isNotEmpty()
-                        && baseSelection.isNotEmpty() -> "($baseSelection) AND $selectionToAppend"
-                selectionToAppend != null && selectionToAppend.isNotEmpty() -> selectionToAppend
-                else -> ""
-
+            if (selectionToAppend != null && selectionToAppend.isNotEmpty()) {
+                if (baseSelection != null && baseSelection.isNotEmpty()) {
+                    "($baseSelection) AND $selectionToAppend"
+                } else {
+                    selectionToAppend
+                }
+            } else {
+                baseSelection ?: ""
             }
 
     private fun getTableName(uri: Uri): String =
             when (uriMatcher.match(uri)) {
-                CATEGORIES -> CategoriesTable.TABLE_NAME
-                CATEGORIES_CATEGORY -> CategoriesTable.TABLE_NAME
+                TRACKING -> TrackingTable.TABLE_NAME
+                TRACKING_ITEM -> TrackingTable.TABLE_NAME
                 else -> throw IllegalArgumentException("Unable to get table name!")
             }
 
     private fun getSelectionToAppend(uri: Uri): String =
             when (uriMatcher.match(uri)) {
-                CATEGORIES_CATEGORY -> "${CategoriesTable.ID} = ${uri.lastPathSegment}"
+                TRACKING_ITEM -> "${TrackingTable.ID} = ${uri.lastPathSegment}"
                 else -> throw IllegalArgumentException("Cannot get selection to append!")
             }
 }
 
-private const val CATEGORIES = 1
-private const val CATEGORIES_CATEGORY = 2
+private const val TRACKING = 1
+private const val TRACKING_ITEM = 2
 
 private const val DIR = "vnd.android.cursor.dir/"
 private const val ITEM = "vnd.android.cursor.item/"

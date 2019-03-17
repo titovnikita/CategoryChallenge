@@ -6,12 +6,14 @@ import mykyta.titov.categorychallenge.core.SingleLiveEvent
 import mykyta.titov.categorychallenge.domain.Category
 import mykyta.titov.categorychallenge.ui.base.BaseViewModel
 import mykyta.titov.categorychallenge.usecases.GetCategoriesUseCase
+import mykyta.titov.categorychallenge.usecases.UpdatePopularityUseCase
 import java.util.concurrent.Executor
 
 
 class CategoriesViewModel(
+        private val executor: Executor,
         private val getCarDetailsUseCase: GetCategoriesUseCase,
-        private val executor: Executor
+        private val updatePopularityUseCase: UpdatePopularityUseCase
 ) : BaseViewModel() {
 
     private val openItemsScreenEvent = SingleLiveEvent<Category>()
@@ -34,6 +36,8 @@ class CategoriesViewModel(
     }
 
     fun onCategoryClicked(category: Category) {
+        updatePopularityUseCase.incrementPopularity(category)
+
         openItemsScreenEvent.value = category
     }
 }

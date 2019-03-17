@@ -22,7 +22,7 @@ class ItemsAdapter(
     override fun getItemCount(): Int = data.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-            ItemViewHolder(parent.inflate(R.layout.item_category), onItemClickListener)
+            ItemViewHolder(parent.inflate(R.layout.item_item), onItemClickListener)
 
     class ItemViewHolder(
             itemView: View,
