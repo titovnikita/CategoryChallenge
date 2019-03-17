@@ -8,10 +8,11 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView.VERTICAL
 import kotlinx.android.synthetic.main.fragment_categories.*
 import mykyta.titov.categorychallenge.R
+import mykyta.titov.categorychallenge.domain.Category.Weight.*
 import mykyta.titov.categorychallenge.ui.base.BaseFragment
 import mykyta.titov.categorychallenge.ui.features.items.ItemsFragment
-import mykyta.titov.categorychallenge.utils.extensions.addFragment
 import mykyta.titov.categorychallenge.utils.extensions.longToast
+import mykyta.titov.categorychallenge.utils.extensions.replaceFragment
 
 
 class CategoriesFragment : BaseFragment<CategoriesViewModel>() {
@@ -43,9 +44,12 @@ class CategoriesFragment : BaseFragment<CategoriesViewModel>() {
                             layoutManager = GridLayoutManager(context, GRID_SPAN_COUNT, VERTICAL, false)
                                     .apply {
                                         spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-                                            override fun getSpanSize(position: Int): Int {
-                                                return 1
-                                            }
+                                            override fun getSpanSize(position: Int): Int =
+                                                    when (state.categories[position].weight) {
+                                                        BIG -> 3
+                                                        MEDIUM -> 2
+                                                        NORMAL -> 1
+                                                    }
                                         }
                                     }
                             adapter = CategoriesAdapter(state.categories) { category ->
@@ -63,7 +67,7 @@ class CategoriesFragment : BaseFragment<CategoriesViewModel>() {
 
     private fun observeNavigationEvents() {
         viewModel.openItemsScreenEvents().observe(this, Observer { category ->
-            addFragment(ItemsFragment.init(category), R.id.container)
+            replaceFragment(ItemsFragment.init(category), R.id.container)
         })
     }
 }

@@ -7,7 +7,7 @@ import mykyta.titov.categorychallenge.R
 import mykyta.titov.categorychallenge.ui.base.BaseActivity
 import mykyta.titov.categorychallenge.ui.features.categories.CategoriesFragment
 import mykyta.titov.categorychallenge.ui.features.highligts.HighlightsFragment
-import mykyta.titov.categorychallenge.utils.extensions.addFragment
+import mykyta.titov.categorychallenge.utils.extensions.replaceFragment
 
 class HomeActivity : BaseActivity<HomeViewModel>() {
 
@@ -21,11 +21,11 @@ class HomeActivity : BaseActivity<HomeViewModel>() {
 
         with(viewModel) {
             openCategoriesScreenEvents().observe(this@HomeActivity, Observer { _ ->
-                addFragment(CategoriesFragment.init(), R.id.container, false)
+                replaceFragment(CategoriesFragment.init(), R.id.container, false)
             })
 
-            openHighlightsScreenEvents().observe(this@HomeActivity, Observer { category ->
-                addFragment(HighlightsFragment.init(category), R.id.container, false)
+            openHighlightsScreenEvents().observe(this@HomeActivity, Observer { _ ->
+                replaceFragment(HighlightsFragment.init(), R.id.container, false)
             })
 
             start()

@@ -47,9 +47,11 @@ class GetCategoriesUseCase(
                             .apply {
                                 if (count > 0) {
                                     while (moveToNext()) {
-                                        add(categoriesMapper.transform(
-                                                TrackingEntity(this@run)
-                                        ))
+                                        add(
+                                                categoriesMapper.transform(
+                                                        TrackingEntity(this@run)
+                                                )
+                                        )
                                     }
                                 }
                             }

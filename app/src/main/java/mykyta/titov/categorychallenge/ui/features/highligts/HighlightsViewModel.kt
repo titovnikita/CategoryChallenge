@@ -3,11 +3,15 @@ package mykyta.titov.categorychallenge.ui.features.highligts
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import mykyta.titov.categorychallenge.core.SingleLiveEvent
-import mykyta.titov.categorychallenge.domain.Category
 import mykyta.titov.categorychallenge.ui.base.BaseViewModel
+import mykyta.titov.categorychallenge.usecases.GetTopCategoryUseCase
+import java.util.concurrent.Executor
 
 
-class HighlightsViewModel : BaseViewModel() {
+class HighlightsViewModel(
+        private val executor: Executor,
+        private val getTopCategoryUseCase: GetTopCategoryUseCase
+) : BaseViewModel() {
 
     private val openCategoriesScreenEvent = SingleLiveEvent<Unit>()
 
@@ -17,8 +21,16 @@ class HighlightsViewModel : BaseViewModel() {
 
     fun uiEvents(): LiveData<HighlightsUiModel> = uiModel
 
-    fun start(category: Category) {
-        uiModel.value = HighlightsUiModel(category.imageUrl)
+    fun start() {
+        executor.execute {
+            val category = getTopCategoryUseCase.getMostPopularCategory()
+            uiModel.postValue(
+                    HighlightsUiModel(
+                            category?.imageUrl
+                                    ?: throw IllegalStateException("You should have most popular category when open this fragment!")
+                    )
+            )
+        }
     }
 
     fun onCategoriesClicked() {

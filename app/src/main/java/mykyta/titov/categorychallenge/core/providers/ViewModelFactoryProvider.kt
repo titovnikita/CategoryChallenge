@@ -1,10 +1,7 @@
 package mykyta.titov.categorychallenge.core.providers
 
 import mykyta.titov.categorychallenge.core.ViewModelFactory
-import mykyta.titov.categorychallenge.usecases.GetCategoriesUseCase
-import mykyta.titov.categorychallenge.usecases.GetItemsUseCase
-import mykyta.titov.categorychallenge.usecases.GetTopCategoryUseCase
-import mykyta.titov.categorychallenge.usecases.UpdatePopularityUseCase
+import mykyta.titov.categorychallenge.usecases.*
 import java.util.concurrent.Executor
 
 class ViewModelFactoryProvider(
@@ -12,7 +9,8 @@ class ViewModelFactoryProvider(
         private val getCategoriesUseCaseProvider: Provider<GetCategoriesUseCase>,
         private val getItemsUseCaseProvider: Provider<GetItemsUseCase>,
         private val updatePopularityUseCaseProvider: Provider<UpdatePopularityUseCase>,
-        private val getTopCategoryUseCaseProvider: Provider<GetTopCategoryUseCase>
+        private val getTopCategoryUseCaseProvider: Provider<GetTopCategoryUseCase>,
+        private val sortCategoriesUseCaseProvider: Provider<SortCategoriesUseCase>
 ) : Provider<ViewModelFactory>() {
 
     private val viewModelFactory: ViewModelFactory by lazy {
@@ -21,7 +19,8 @@ class ViewModelFactoryProvider(
                 getCategoriesUseCase = getCategoriesUseCaseProvider.get(),
                 getItemsUseCase = getItemsUseCaseProvider.get(),
                 updatePopularityUseCase = updatePopularityUseCaseProvider.get(),
-                getTopCategoryUseCase = getTopCategoryUseCaseProvider.get()
+                getTopCategoryUseCase = getTopCategoryUseCaseProvider.get(),
+                sortCategoriesUseCase = sortCategoriesUseCaseProvider.get()
         )
     }
 

@@ -13,6 +13,7 @@ import mykyta.titov.categorychallenge.ui.base.BaseFragment
 import mykyta.titov.categorychallenge.ui.features.image.ImageFragment
 import mykyta.titov.categorychallenge.utils.extensions.addFragment
 import mykyta.titov.categorychallenge.utils.extensions.longToast
+import mykyta.titov.categorychallenge.utils.extensions.replaceFragment
 
 
 class ItemsFragment : BaseFragment<ItemsViewModel>() {
@@ -73,7 +74,7 @@ class ItemsFragment : BaseFragment<ItemsViewModel>() {
 
     private fun observeNavigationEvents() {
         viewModel.openImageScreenEvents().observe(this, Observer { imageUrl ->
-            addFragment(ImageFragment.init(imageUrl), R.id.container)
+            replaceFragment(ImageFragment.init(imageUrl), R.id.container)
         })
     }
 }

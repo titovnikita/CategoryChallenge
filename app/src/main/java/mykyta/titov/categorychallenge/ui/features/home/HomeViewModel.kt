@@ -12,11 +12,11 @@ class HomeViewModel(
         private val getTopCategoryUseCase: GetTopCategoryUseCase
 ) : BaseViewModel() {
 
-    private val openHighlightsScreenEvent = SingleLiveEvent<Category>()
+    private val openHighlightsScreenEvent = SingleLiveEvent<Unit>()
 
     private val openCategoriesScreenEvent = SingleLiveEvent<Unit>()
 
-    fun openHighlightsScreenEvents(): SingleLiveEvent<Category> = openHighlightsScreenEvent
+    fun openHighlightsScreenEvents(): SingleLiveEvent<Unit> = openHighlightsScreenEvent
 
     fun openCategoriesScreenEvents(): SingleLiveEvent<Unit> = openCategoriesScreenEvent
 
@@ -26,7 +26,7 @@ class HomeViewModel(
             if (category == null) {
                 openCategoriesScreenEvent.postValue(Unit)
             } else {
-                openHighlightsScreenEvent.postValue(category)
+                openHighlightsScreenEvent.postValue(Unit)
             }
         }
     }
