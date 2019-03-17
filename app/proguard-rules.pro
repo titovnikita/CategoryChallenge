@@ -56,19 +56,6 @@
 # Ignore JSR 305 annotations for embedding nullability information.
 -dontwarn javax.annotation.**
 
-#--------------------------Localytics---------------------------
--keep class com.localytics.android.** { *; }
--keepattributes JavascriptInterface
-
--keep public class com.google.android.gms.common.internal.safeparcel.SafeParcelable {
-    public static final *** NULL;
-}
-
--keepnames @com.google.android.gms.common.annotation.KeepName class *
--keepclassmembernames class * {
-    @com.google.android.gms.common.annotation.KeepName *;
-}
-
 #-----------------------Glide--------------------------
 -keep public class * implements com.bumptech.glide.module.GlideModule
 -keep public class * extends com.bumptech.glide.module.AppGlideModule
