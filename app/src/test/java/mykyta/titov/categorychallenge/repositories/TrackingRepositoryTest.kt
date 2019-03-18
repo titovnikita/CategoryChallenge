@@ -2,8 +2,7 @@ package mykyta.titov.categorychallenge.repositories
 
 import android.content.ContentResolver
 import android.database.Cursor
-import com.nhaarman.mockitokotlin2.any
-import com.nhaarman.mockitokotlin2.anyArray
+import android.net.Uri
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
 import mykyta.titov.categorychallenge.data.repositories.tracking.TrackingRepository
@@ -11,14 +10,16 @@ import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Test
 import org.mockito.ArgumentMatchers.anyString
+import org.mockito.Mockito
+
 
 class TrackingRepositoryTest {
 
     private val mockContentResolver: ContentResolver = mock()
 
-    private val remoteDataSource = TrackingRepository.Local(mockContentResolver)
+    private val localDataSource = TrackingRepository.Local(mockContentResolver)
 
-    private val trackingRepository = TrackingRepository(remoteDataSource)
+    private val trackingRepository = TrackingRepository(localDataSource)
 
     @Test
     fun `Get top clicked categories from repository no items`() {
@@ -28,7 +29,7 @@ class TrackingRepositoryTest {
         assertNull(cursor)
     }
 
-    /*@Test TODO fix tests, problem is in calling mocked method. Never being called, params are wrong.
+    @Test
     fun `Get top clicked categories from repository with items`() {
         val mockCursor: Cursor = mock()
         whenever(mockCursor.count)
@@ -46,15 +47,15 @@ class TrackingRepositoryTest {
         givenError(exception)
 
         trackingRepository.queryByPopularity(ITEMS_COUNT)
-    }*/
+    }
 
     private fun givenResult(cursor: Cursor?) {
-        whenever(mockContentResolver.query(any(), anyArray<String>(), anyString(), anyArray<String>(), anyString()))
+        whenever(mockContentResolver.query(Mockito.any<Uri>(), Mockito.any<Array<String>>(), Mockito.any<String>(), Mockito.any<Array<String>>(), anyString()))
                 .thenReturn(cursor)
     }
 
     private fun givenError(exception: Exception) {
-        whenever(mockContentResolver.query(any(), anyArray<String>(), anyString(), anyArray<String>(), anyString()))
+        whenever(mockContentResolver.query(Mockito.any<Uri>(), Mockito.any<Array<String>>(), Mockito.any<String>(), Mockito.any<Array<String>>(), anyString()))
                 .thenThrow(exception)
     }
 

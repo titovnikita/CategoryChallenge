@@ -99,7 +99,7 @@ class CategoriesMapperTest {
     }
 
     @Test
-    fun `Map tracking entity to category with null id and data`() {
+    fun `Map tracking entity to category with null id and valid data`() {
         val categoryId = "category_id"
         val categoryImageUrl = "category_image_url"
         val categoryPopularity = 123
