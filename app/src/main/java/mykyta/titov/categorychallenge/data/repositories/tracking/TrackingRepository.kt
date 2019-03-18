@@ -16,7 +16,7 @@ class TrackingRepository(private val localDataSource: Local) {
     class Local(contentResolver: ContentResolver) : BaseLocalDataSource(contentResolver) {
 
         fun queryByPopularity(itemsCount: Int): Cursor? {
-            val sortOrder = "${TrackingTable.POPULARITY} DESC LIMIT $itemsCount"
+            val sortOrder = "${TrackingTable.POPULARITY} $SORT_TYPE LIMIT $itemsCount"
             return contentResolver.query(TrackingTable.CONTENT_URI, null, null, null, sortOrder)
         }
 
@@ -51,3 +51,4 @@ class TrackingRepository(private val localDataSource: Local) {
     }
 }
 
+private const val SORT_TYPE = "DESC"
